@@ -16,6 +16,7 @@ public interface TypeMapper {
     List<TypeResponse> toListResponse(List<Type> list);
 
     Type type(TypeRequest typeRequest);
+
     Type type(TypeResponse typeResponse);
     TypeRequest toRequest(Type type);
     TypeResponse toResponse(Type type);

@@ -31,6 +31,11 @@ public class MedicineController  {
     public List<MedicineResponse> findAllByType(@RequestParam("type_id") Long type_id){
         return medicineService.findByType(type_id);
     }
+    @PutMapping("{id}/setType")
+    public ResponseEntity<String> setType(@RequestParam("type_id") Long type_id,@PathVariable("id") Long id){
+        medicineService.setType(type_id, id);
+        return ResponseEntity.ok("Success!");
+    }
 
 
 

@@ -21,6 +21,8 @@ public class Medicine extends BaseEntity {
     int price;
     @Column(name = "form", columnDefinition = "TEXT")
     String form;
+    @Column(name = "address")
+    String address;
     @JoinColumn(name = "pharmacy_id")
     @ManyToOne
     Pharmacy pharmacy;

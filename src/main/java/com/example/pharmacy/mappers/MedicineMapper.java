@@ -1,6 +1,7 @@
 package com.example.pharmacy.mappers;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.example.pharmacy.dto.request.MedicineRequest;
@@ -21,5 +22,8 @@ public interface MedicineMapper {
 
     Medicine toEntity(MedicineRequest medicineRequest);
 
+
     List<MedicineResponse> toResponseList(List<Medicine> list);
+
+    Set<MedicineResponse> toResponseSet(Set<Medicine> set);
 }

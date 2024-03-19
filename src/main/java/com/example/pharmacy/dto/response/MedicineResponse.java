@@ -1,15 +1,23 @@
 package com.example.pharmacy.dto.response;
 
+import jakarta.persistence.Column;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Data
+@Setter
+@Getter
+@ToString
 public class MedicineResponse {
+    @Column(name = "name")
     String name;
-    String form;
+    @Column(name = "price")
     int price;
-    String type;
+    @Column(name = "form", columnDefinition = "TEXT")
+    String form;
+    @Column(name = "address")
     String address;
-    String pharmacy;
-
 
 }
