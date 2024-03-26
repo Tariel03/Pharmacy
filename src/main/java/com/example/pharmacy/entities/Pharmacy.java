@@ -1,9 +1,7 @@
 package com.example.pharmacy.entities;
 
 import com.example.pharmacy.entities.base.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -21,4 +19,7 @@ public class Pharmacy extends BaseEntity {
     String name;
     @Column(name = "address", unique = true)
     String address;
+    @JoinColumn(name = "image_id")
+    @ManyToOne
+    Image image;
 }

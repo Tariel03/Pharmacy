@@ -7,5 +7,5 @@ import java.util.Map;
 
 public interface ImageService {
 
-    ResponseEntity<Map> uploadImage(ImageDTO imageModel);
+    ResponseEntity<?> uploadImage(ImageDTO imageModel);
 }

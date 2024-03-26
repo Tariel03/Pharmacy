@@ -41,4 +41,5 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handle(CloudStorageException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cloud Storage Error");
     }
+
 }

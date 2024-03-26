@@ -29,6 +29,9 @@ public class Medicine extends BaseEntity {
     @JoinColumn(name = "type_id")
     @ManyToOne
     Type type;
+    @JoinColumn(name = "image_id")
+    @ManyToOne
+    Image image;
 
 
 

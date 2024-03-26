@@ -12,7 +12,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface TypeMapper {
     TypeMapper Instance = Mappers.getMapper(TypeMapper.class);
-    List<TypeRequest> toListRequest(List<Type> list);
     List<TypeResponse> toListResponse(List<Type> list);
 
     Type type(TypeRequest typeRequest);

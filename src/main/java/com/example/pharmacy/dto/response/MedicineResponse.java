@@ -6,18 +6,17 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Data
-@Setter
-@Getter
-@ToString
-public class MedicineResponse {
-    @Column(name = "name")
-    String name;
-    @Column(name = "price")
-    int price;
-    @Column(name = "form", columnDefinition = "TEXT")
-    String form;
-    @Column(name = "address")
-    String address;
 
+
+@Data
+@Getter
+@Setter
+public class MedicineResponse {
+    private String name;
+    private int price;
+    private String form;
+    private String address;
+    @Column(name = "url")
+    private String url;
 }
+

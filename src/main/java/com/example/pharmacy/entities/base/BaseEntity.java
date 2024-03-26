@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @MappedSuperclass
 @NoArgsConstructor
@@ -17,20 +20,23 @@ public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
-    @Column(name = "created_date")
-    LocalDate createdlDate;
-    @Column(name = "updated_date")
-    LocalDate updatedDate;
+    @CreationTimestamp
+    @Column(name = "created_time")
+    private LocalDate createdTime;
+
+    @UpdateTimestamp
+    @Column(name = "updated_time")
+    private LocalDate updatedTime;
     @Column(name = "deleted_date")
     LocalDate deletedDate;
 
     @PrePersist
     public void prePersist(){
-        createdlDate = LocalDate.now();
+        createdTime = LocalDate.now();
     }
     @PreUpdate
     public void preUpdate(){
-        updatedDate = LocalDate.now();
+        updatedTime = LocalDate.now();
     }
     @PreRemove()
     public void preRemove(){

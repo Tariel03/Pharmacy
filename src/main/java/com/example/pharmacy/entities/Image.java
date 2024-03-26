@@ -21,10 +21,10 @@ public class Image  {
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "name_image")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "url_image")
+    @Column(name = "url")
     private String url;
 
 }

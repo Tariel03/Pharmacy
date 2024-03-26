@@ -14,7 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/pharmacy")
 public class PharmacyController {
-//
     private final PharmacyServiceImpl pharmacyService;
     @GetMapping("/all")
     public List<PharmacyResponse> findAll(){

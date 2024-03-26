@@ -19,7 +19,7 @@ public class ImageServiceImpl implements ImageService {
 
 
     @Override
-    public ResponseEntity<Map> uploadImage(ImageDTO imageModel) {
+    public ResponseEntity<?> uploadImage(ImageDTO imageModel) {
         try {
             if (imageModel.getName().isEmpty()) {
                 return ResponseEntity.badRequest().build();
@@ -34,7 +34,7 @@ public class ImageServiceImpl implements ImageService {
                 return ResponseEntity.badRequest().build();
             }
             imageRepository.save(image);
-            return ResponseEntity.ok().body(Map.of("url", image.getUrl()));
+            return ResponseEntity.ok(image);
         } catch (CloudStorageException cloudStorageException) {
             cloudStorageException.printStackTrace();
         }

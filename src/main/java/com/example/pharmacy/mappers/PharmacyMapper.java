@@ -14,8 +14,10 @@ import java.util.Set;
 
 @Mapper(componentModel = "spring")
 
-public interface PharmacyMapper {
+public interface PharmacyMapper  {
     PharmacyMapper Instance = Mappers.getMapper(PharmacyMapper.class);
+
+
     PharmacyResponse toResponse(Pharmacy pharmacy);
 
     PharmacyRequest toRequest(Pharmacy pharmacy);
@@ -24,7 +26,6 @@ public interface PharmacyMapper {
     Pharmacy toEntity(PharmacyRequest request);
     List<PharmacyResponse> toResponseList(List<Pharmacy> list);
 
-    Set<PharmacyResponse> toResponseSet(Set<Pharmacy> set);
 
 
 

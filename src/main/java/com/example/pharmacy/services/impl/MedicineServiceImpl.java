@@ -40,6 +40,11 @@ public class MedicineServiceImpl implements MedicineService {
     }
 
     @Override
+    public void save(Medicine medicine) {
+        medicineRepository.save(medicine);
+    }
+
+    @Override
     public List<MedicineResponse> findByType(Long type_id) {
         return medicineMapper.toResponseList(
                 medicineRepository.findByType(

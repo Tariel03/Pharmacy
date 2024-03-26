@@ -16,8 +16,16 @@ public interface MedicineMapper {
     MedicineMapper INSTANCE = Mappers.getMapper(MedicineMapper.class);
 
     MedicineRequest toRequest(Medicine medicine);
-
-    MedicineResponse toResponse(Medicine medicine);
+    default MedicineResponse toResponse(Medicine medicine){
+        if(medicine == null) return null;
+        MedicineResponse response = new MedicineResponse();
+        response.setUrl(medicine.getImage().getUrl());
+        response.setPrice(medicine.getPrice());
+        response.setAddress(medicine.getAddress());
+        response.setName(medicine.getName());
+        response.setPrice(medicine.getPrice());
+        return response;
+    }
 
 
     Medicine toEntity(MedicineRequest medicineRequest);
@@ -25,5 +33,4 @@ public interface MedicineMapper {
 
     List<MedicineResponse> toResponseList(List<Medicine> list);
 
-    Set<MedicineResponse> toResponseSet(Set<Medicine> set);
 }
