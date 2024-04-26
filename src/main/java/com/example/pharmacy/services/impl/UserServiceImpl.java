@@ -1,12 +1,14 @@
 package com.example.pharmacy.services.impl;
 
 import com.example.pharmacy.Enum.Role;
-import com.example.pharmacy.dto.request.UserRequest;
+import com.example.pharmacy.dto.response.UserResponse;
 import com.example.pharmacy.entities.AppUser;
+import com.example.pharmacy.exception.NotFoundById;
+import com.example.pharmacy.exception.NotFoundByName;
+import com.example.pharmacy.mappers.AppUserMapper;
 import com.example.pharmacy.repositories.AppUserRepository;
 import com.example.pharmacy.services.repo.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final AppUserRepository appUserRepository;
+    private final AppUserMapper mapper;
     @Override
     public Optional<AppUser> findRawById(Long id) {
         return appUserRepository.findById(id);
@@ -26,28 +29,37 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserRequest findById(Long id) {
-        return null;
+    public UserResponse findById(Long id) {
+        return mapper.toResponse(appUserRepository.findById(id).orElseThrow(
+                () -> new NotFoundById("Not found  with id :" + id)
+        ));
+
     }
 
     @Override
-    public List<UserRequest> findAll() {
-        return null;
+    public List<UserResponse> findAll() {
+        return mapper.toListResponse(appUserRepository.findAll());
     }
 
     @Override
-    public Optional<UserRequest> findByUsername(String username) {
-        return Optional.empty();
+    public UserResponse findByUsername(String username) {
+        return mapper.toResponse(appUserRepository.findByUsername(username).orElseThrow(
+                () -> new NotFoundByName("Not found with username : " + username)
+        ));
+
+    }
+    public Optional<AppUser> findRawByUsername(String username) {
+        return appUserRepository.findByUsername(username);
     }
 
     @Override
-    public Optional<User> findByRawUsername(String username) {
-        return Optional.empty();
+    public Optional<AppUser> findByRawUsername(String username) {
+        return appUserRepository.findByUsername(username);
     }
 
     @Override
     public Boolean existsByEmail(String email) {
-        return null;
+        return appUserRepository.existsByEmail(email);
     }
 
     @Override
@@ -56,12 +68,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserRequest> findByRole(Role role) {
-        return null;
+    public List<UserResponse> findByRole(Role role) {
+        return mapper.toListResponse(appUserRepository.findByRole(role));
     }
 
     @Override
     public int countVerifiedUsers() {
-        return 0;
+        return appUserRepository.countByEmailVerifiedTrue();
     }
 }

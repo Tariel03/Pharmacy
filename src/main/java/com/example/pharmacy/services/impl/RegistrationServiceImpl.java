@@ -34,15 +34,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 
 
-    @Override
-    public Optional<String> login(UserRequest userRequest) {
-        return Optional.empty();
-    }
 
-    @Override
-    public void registration(UserRequest userRequest) {
-
-    }
 
     @Transactional
     @Override
@@ -62,12 +54,4 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
 
-
-
-
-
-    @Override
-    public void save(AppUser client) {
-
-    }
 }

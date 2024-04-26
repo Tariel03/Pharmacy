@@ -3,7 +3,7 @@ package com.example.pharmacy.controllers;
 
 import com.example.pharmacy.Util.JwtUtil;
 import com.example.pharmacy.dto.request.UserRequest;
-import com.example.pharmacy.dto.response.TokenResponse;
+import com.example.pharmacy.dto.response.TokensResponse;
 import com.example.pharmacy.entities.AppUser;
 import com.example.pharmacy.repositories.AppUserRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import com.example.pharmacy.services.impl.*;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -57,7 +58,14 @@ public class AuthController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation",
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = UserRequest.class)))) })
-    public ResponseEntity< TokenResponse> performLogin(@RequestBody UserRequest authDto) {
+    public ResponseEntity<?> performLogin(@RequestBody UserRequest authDto) {
+
+        Optional<AppUser> optionalUser = userService.findRawByUsername(authDto.getUsername());
+        if (optionalUser.isEmpty()) {
+            // User does not exist, return an error response
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
         UsernamePasswordAuthenticationToken authInputToken =
                 new UsernamePasswordAuthenticationToken(authDto.getUsername(),
                         authDto.getPassword());
@@ -72,7 +80,7 @@ public class AuthController {
             refreshToken = "Error";
         }
 
-        TokenResponse tokenResponse =  TokenResponse.builder().accessToken(accessToken).refreshToken(refreshToken).build();
+        TokensResponse tokenResponse =  TokensResponse.builder().accessToken(accessToken).refreshToken(refreshToken).build();
         //Если все норм то токен выдает!
         return ResponseEntity.ok(tokenResponse);
     }
@@ -96,7 +104,7 @@ public class AuthController {
                 String accessToken = jwtUtil.generateAccessToken(user.getUsername());
                 String refreshToken = jwtUtil.generateRefreshToken(user.getUsername());
 
-                TokenResponse tokenResponse =  TokenResponse.builder().accessToken(accessToken).refreshToken(refreshToken).build();
+                TokensResponse tokenResponse =  TokensResponse.builder().accessToken(accessToken).refreshToken(refreshToken).build();
                 emailService.deleteVerificationToken(token);
                 return ResponseEntity.ok(tokenResponse);
              } else {

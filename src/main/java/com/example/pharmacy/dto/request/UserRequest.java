@@ -5,15 +5,13 @@ import com.example.pharmacy.Enum.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Data
 @Setter
 @Getter
 @ToString
+@Builder
 public class UserRequest {
     private String password;
     private String username;
